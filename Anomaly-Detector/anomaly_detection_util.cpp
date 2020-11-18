@@ -65,7 +65,7 @@ Line linear_reg(Point** points, int size) {
 	return Line(a, b);
 }
 
-float dev (Point p,Line l) {
+float dev(Point p,Line l) {
 	return std::abs(p.y - l.f(p.x));
 }
 

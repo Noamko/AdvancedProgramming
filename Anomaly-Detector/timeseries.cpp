@@ -1,12 +1,12 @@
 #include "timeseries.h"
 #include <exception>
 
-vector<vector<string> > transpose(vector<vector<string> > v, int size) {
-	vector<vector<string> > trans;
+vector<vector<float> > transposeFloat(vector<vector<string> > v, int size) {
+	vector<vector<float> > trans;
 	for(int i = 0; i < size; i++) {
-		vector<string> data;
+		vector<float> data;
 		for(int j = 0; j < v.size(); j++) {
-			data.push_back(v[j].at(i));
+			data.push_back(std::stof(v.at(j).at(i)));
 		}
 		trans.push_back(data);
 	}
@@ -24,26 +24,42 @@ TimeSeries::TimeSeries(const char* CSVfilename) {
 			if(line[i] == ','){
 				data.push_back(line.substr(previndex, i - previndex));
 				previndex = i + 1;
+			}
+			else if(i + 1 == line.length()) {
+				data.push_back(line.substr(previndex));
 			}			
 		}
 		data_matrix.push_back(data);
 	}
 	properties = data_matrix.front();
+	
 	data_matrix.erase(data_matrix.begin());
-	vector<vector<string> > pv = transpose(data_matrix,properties.size());
-	for(int i = 0; i < pv.size(); i++) {
-		propertyValues.insert(std::pair<string, vector<string> >(properties.at(i), pv[i]));
+	vector<vector<float> > float_matrix = transposeFloat(data_matrix,properties.size());
+	for(int i = 0; i < float_matrix.size(); i++) {
+		propertyValues.insert(std::pair<string, vector<float> >(properties.at(i), float_matrix[i]));
 	}
 }
 
-vector<string> TimeSeries::getPropertyVector(string property) {
-	return propertyValues[property];
-}
-string TimeSeries::getProperty(int index) {
-	return properties.at(index);
+string TimeSeries::getProperty(int i) const{
+	return this->properties.at(i);
 }
 
-float TimeSeries::getValue(int row, int cell) {
-	return std::stof(data_matrix.at(row).at(cell));
+const float TimeSeries::getValue(int r, int c) const{
+	return std::stof(data_matrix.at(r).at(c));
+}
+	
+vector<float> TimeSeries::getPropertyVector(string property) const{
+	return propertyValues.at(property);
+}
+const int TimeSeries::propertyCount() const {
+	return properties.size();
 }
 
+//not Tested
+void TimeSeries::insert(string* data) {
+	vector<string> temp;
+	while(data) {
+		temp.push_back(data[0]);
+		data++;
+	}
+}

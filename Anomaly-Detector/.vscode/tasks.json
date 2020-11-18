@@ -1,17 +1,11 @@
 {
     "tasks": [
         {
-            "type": "shell",
-            "label": "C/C++: clang++ build active file",
-            "command": "/usr/bin/clang++",
-            "args": [
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
-            ],
+            "type": "cppbuild",
+            "label": "C/C++: g++ build active file",
+            "command": "g++ -g timeseries.cpp Test.cpp SimpleAnomalyDetector.cpp anomaly_detection_util.cpp",
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "/usr/bin"
             },
             "problemMatcher": [
                 "$gcc"
@@ -19,7 +13,8 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "detail": "Generated task by Debugger"
         }
     ],
     "version": "2.0.0"

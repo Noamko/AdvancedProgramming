@@ -26,10 +26,9 @@ int main() {
 	float a1=1+rand()%10, b1=-50+rand()%100;
 	float a2=1+rand()%20 , b2=-50+rand()%100;
 	generateTrainCSV(a1,b1,a2,b2);
-
+	SimpleAnomalyDetector sa;
 	TimeSeries ts("trainFile1.csv");
-	for(int i = 0; i < ts.getPropertyVector("C").size(); i++) {
-		std::cout << ts.getPropertyVector("C").at(i) << endl;
-	}
+	sa.learnNormal(ts);
+	sa.detect(ts);
     return 0;
 }

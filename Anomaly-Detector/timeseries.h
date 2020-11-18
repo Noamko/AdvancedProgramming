@@ -13,13 +13,14 @@ private:
 	const char* filename;
 	vector< vector<string> > data_matrix;
 	vector<string> properties;
-	map<string, vector<string> > propertyValues;	
+	map<string, vector<float> > propertyValues;	
 public:
 	TimeSeries(const char* CSVfileName);
-	string getProperty(int i);
-	float getValue(int r, int c);
-	vector<string> getPropertyVector(string property);
+	void insert(string* data);	
+	string getProperty(int i) const;
+	const float getValue(int r, int c) const;
+	vector<float> getPropertyVector(string property) const;
+	const int propertyCount() const;
 };
-
 
 #endif /* TIMESERIES_H_ */
