@@ -3,7 +3,7 @@
         {
             "type": "cppbuild",
             "label": "C/C++: g++ build active file",
-            "command": "g++ -g timeseries.cpp Test.cpp SimpleAnomalyDetector.cpp anomaly_detection_util.cpp",
+            "command": "g++ -g timeseries.cpp MainTrain.cpp SimpleAnomalyDetector.cpp anomaly_detection_util.cpp",
             "options": {
                 "cwd": "/usr/bin"
             },

@@ -74,12 +74,12 @@ int main(){
 	TimeSeries ts("trainFile1.csv");
 	SimpleAnomalyDetector ad;
 	ad.learnNormal(ts);
-	vector<correlatedFeatures> cf=ad.getNormalModel();
+	vector<correlatedFeatures> corf = ad.getNormalModel();
 
-	if(cf.size()!=2)
+	if(corf.size()!=2)
 		cout<<"wrong size of correlated features (-40)"<<endl;
 	else
-	for_each(cf.begin(),cf.end(),[&a1,&b1,&a2,&b2](correlatedFeatures c){
+	for_each(corf.begin(),corf.end(),[&a1,&b1,&a2,&b2](correlatedFeatures c){
 		checkCorrelationTrain(c,"A","C",a1,b1); // 20 points
 		checkCorrelationTrain(c,"B","D",a2,b2); // 20 points
 	});

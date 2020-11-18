@@ -30,5 +30,6 @@ int main() {
 	TimeSeries ts("trainFile1.csv");
 	sa.learnNormal(ts);
 	sa.detect(ts);
+	sa.getNormalModel();
     return 0;
 }

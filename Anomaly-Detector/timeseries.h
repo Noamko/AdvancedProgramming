@@ -10,10 +10,10 @@ using namespace std;
 
 class TimeSeries{
 private:
-	const char* filename;
 	vector< vector<string> > data_matrix;
 	vector<string> properties;
-	map<string, vector<float> > propertyValues;	
+	map<string, vector<float> > propertyValues;
+	void parseCSV(const char* CSVfilename, vector< vector<string> > &matrix, vector<string> &prop);
 public:
 	TimeSeries(const char* CSVfileName);
 	void insert(string* data);	

@@ -13,7 +13,7 @@ vector<vector<float> > transposeFloat(vector<vector<string> > v, int size) {
 	return trans;
 }
 
-TimeSeries::TimeSeries(const char* CSVfilename) {
+void TimeSeries::parseCSV(const char* CSVfilename,vector<vector<string> > &matrix, vector<string> &prop) {
 	std::ifstream csvfile(CSVfilename);
 	std::string line;
 	int previndex = 0;
@@ -29,11 +29,14 @@ TimeSeries::TimeSeries(const char* CSVfilename) {
 				data.push_back(line.substr(previndex));
 			}			
 		}
-		data_matrix.push_back(data);
+		matrix.push_back(data);
 	}
-	properties = data_matrix.front();
-	
-	data_matrix.erase(data_matrix.begin());
+	prop = matrix.front();
+	matrix.erase(matrix.begin());
+}
+
+TimeSeries::TimeSeries(const char* CSVfilename) {
+	parseCSV(CSVfilename, data_matrix, properties);
 	vector<vector<float> > float_matrix = transposeFloat(data_matrix,properties.size());
 	for(int i = 0; i < float_matrix.size(); i++) {
 		propertyValues.insert(std::pair<string, vector<float> >(properties.at(i), float_matrix[i]));

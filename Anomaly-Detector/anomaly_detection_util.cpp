@@ -3,7 +3,7 @@
 
 float mean(float* x, int size) {
 	if(size <= 0) {
-		throw "ERROR: size cant be less or equal to zero";
+		//std::cout << "ERROR: size cant be less or equal to zero" << std::endl;
 	}
 
 	float mean = 0;
@@ -16,7 +16,7 @@ float mean(float* x, int size) {
 
 float var(float* x, int size){
 	if(size <= 0) {
-		throw "size cannot be less or equal to zero!";
+		//throw "size cannot be less or equal to zero!";
 	}
 	float u = 0;
 	float variance = 0;
@@ -31,7 +31,7 @@ float var(float* x, int size){
 
 float cov(float* x, float* y, int size) {
 	if(size <= 0) {
-		throw "size cannot be less or equal to zero!";
+		//throw "size cannot be less or equal to zero!";
 	}
 	float mean_x = mean(x,size);
 	float mean_y = mean(y,size);
@@ -45,7 +45,7 @@ float cov(float* x, float* y, int size) {
 
 float pearson(float* x, float* y, int size) {
 	if(size <= 0) {
-		throw "size cannot be less or equal to zero!";
+		//throw "size cannot be less or equal to zero!";
 	}
 	float sigx = std::sqrt(var(x, size));
 	float sigy = std::sqrt(var(y, size));
