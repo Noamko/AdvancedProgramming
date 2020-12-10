@@ -10,16 +10,16 @@
 #include <map>
 
 struct correlatedFeatures{
-	string feature1,feature2;  // names of the correlated features
+	string feature1, feature2;  // names of the correlated features
 	float corrlation;
 	Line lin_reg;
 	float threshold;
 };
 
 
-class SimpleAnomalyDetector: public TimeSeriesAnomalyDetector{
+class SimpleAnomalyDetector: public TimeSeriesAnomalyDetector {
 	vector<correlatedFeatures> cf;
-	map<string, float> maxDevs;
+	
 public:
 	SimpleAnomalyDetector();
 	virtual ~SimpleAnomalyDetector();
