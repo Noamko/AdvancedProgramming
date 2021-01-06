@@ -10,10 +10,11 @@
 #include <map>
 
 struct correlatedFeatures{
-	string feature1, feature2;  // names of the correlated features
+	string feature1, feature2;
 	float corrlation;
-	Line lin_reg;
 	float threshold;
+	Line lin_reg;
+	Point center;
 };
 
 
@@ -30,7 +31,26 @@ public:
 	vector<correlatedFeatures> getNormalModel(){
 		return cf;
 	}
+protected:
+ map<string, vector<Point*> > featurePointMap(const TimeSeries& ts) {
+     map<string, vector<Point*> > _map;
+     for (int i = 0; i < ts.propertyCount(); i++) {
+         for (int j = i; j < ts.propertyCount(); j++) {
+             string f1 = ts.getProperty(i);
+             string f2 = ts.getProperty(j);
 
+             if (f1.compare(f2) != 0) {
+                 vector<Point*> point_vector;
+                 for (int i = 0; i < ts.getPropertyVector(f1).size(); i++) {
+                     point_vector.push_back(new Point(ts.getPropertyVector(f1).at(i), ts.getPropertyVector(f2).at(i)));
+                 }
+                 string corr_name = f1.append("-").append(f2);
+                 _map.insert(std::pair<string, vector<Point*> >(corr_name, point_vector));
+             }
+         }
+     }
+     return _map;
+ }
 };
 
 

@@ -17,13 +17,14 @@ using namespace std;
  * used to create circles :)
  */
 class Circle {
-   public:
+public:
+    Circle();
     Circle(Point c, float r) : center(c), radius(r) {}
     Point center;
     float radius;
 };
 
-Circle bestCircle(Point **&points, vector<Point> R, size_t size);
+Circle bestCircle(Point **points, vector<Point> R, size_t size);
 
 Circle build(vector<Point> &points);
 
@@ -31,7 +32,7 @@ Circle createFrom3Points(Point &p1, Point &p2, Point &p3);
 
 Circle createFrom2Points(Point &p1, Point &p2);
 
-Circle findMinCircle(Point **&points, size_t size);
+Circle findMinCircle(Point **points, size_t size);
 
 int isPointInCircle(Point &point1, Circle &c);
 
@@ -39,6 +40,6 @@ float dist2Points(const Point &p1, const Point &p2);
 
 void swap(Point &p1, Point &p2);
 
-void shuffle(Point **&points, size_t size);
+void shuffle(Point **points, size_t size);
 
 #endif /* MINCIRCLE_H_ */

@@ -18,8 +18,8 @@ public:
 	TimeSeries(const char* CSVfileName);
 	void insert(string* data);	
 	string getProperty(int i) const;
-	const float getValue(int r, int c) const;
 	vector<float> getPropertyVector(string property) const;
+	const float getValue(int r, int c) const;
 	const int propertyCount() const;
 };
 

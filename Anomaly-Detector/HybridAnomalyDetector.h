@@ -7,10 +7,16 @@
 #include "minCircle.h"
 
 class HybridAnomalyDetector:public SimpleAnomalyDetector {
-public:
-	HybridAnomalyDetector();
-	virtual ~HybridAnomalyDetector();
+    vector<correlatedFeatures> cf;
 
+   public:
+    HybridAnomalyDetector();
+    virtual void learnNormal(const TimeSeries& ts);
+    virtual vector<AnomalyReport> detect(const TimeSeries& ts);
+    virtual ~HybridAnomalyDetector();
+    vector<correlatedFeatures> getNormalModel() {
+        return cf;
+    }
 };
 
 #endif /* HYBRIDANOMALYDETECTOR_H_ */

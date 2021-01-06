@@ -67,7 +67,7 @@ Circle build(vector<Point> &points) {
     return createFrom3Points(points[0], points[1], points[2]);
 }
 
-Circle bestCircle(Point **&points, vector<Point> R, size_t size) {
+Circle bestCircle(Point **points, vector<Point> R, size_t size) {
     if (size == 0 || R.size() == 3) {
         return build(R);
     }
@@ -86,14 +86,14 @@ void swap(Point &p1, Point &p2) {
     p2 = temp;
 }
 
-void shuffle(Point **&points, size_t size) {
+void shuffle(Point **points, size_t size) {
     for (int i = 0; i < size; i++) {
         int randindx = rand() % size;
         swap(points[i], points[randindx]);
     }
 }
 
-Circle findMinCircle(Point **&points, size_t size) {
+Circle findMinCircle(Point **points, size_t size) {
     vector<Point> R;
     shuffle(points, size);
     return bestCircle(points, R, size);

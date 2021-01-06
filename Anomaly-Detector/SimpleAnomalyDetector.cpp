@@ -10,6 +10,7 @@ SimpleAnomalyDetector::SimpleAnomalyDetector() {
 SimpleAnomalyDetector::~SimpleAnomalyDetector() {
 }
 
+
 void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts){
     for(int i = 0; i < ts.propertyCount(); i++) {
         for(int j = i; j < ts.propertyCount(); j++) {
@@ -26,6 +27,7 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts){
 
                 //Learn
                 Line reg = linear_reg(vp.data(), vp.size());
+
                 float threshold = 0;
                 for (int i = 0; i < vp.size(); i++) {
                     float temp = dev(*vp.at(i), reg);
@@ -33,34 +35,14 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries& ts){
                         threshold = temp;
                     }
                 }
-                float correlation = std::abs(pearson(ts.getPropertyVector(f1).data(),
-                                    ts.getPropertyVector(f2).data(), ts.getPropertyVector(f1).size()));
-                correlatedFeatures features = {f1, f2, correlation, reg, threshold};
+                float correlation = std::abs(pearson(ts.getPropertyVector(f1).data(), ts.getPropertyVector(f2).data(), ts.getPropertyVector(f1).size()));
+                correlatedFeatures features = {f1, f2, correlation, threshold,reg, Point(0,0)};
                 if(correlation > CORRELATION_THRESHOLD) cf.push_back(features);
             }
         }
     }
 }
 
-map<string, vector<Point*> > featurePointMap(const TimeSeries& ts) {
-    map<string, vector<Point*> > _map;
-    for(int i = 0; i < ts.propertyCount(); i++) {
-        for(int j = i; j < ts.propertyCount(); j++) {
-            string f1 = ts.getProperty(i);
-            string f2 = ts.getProperty(j);
-
-            if(f1.compare(f2) != 0) {
-                vector<Point*> point_vector;
-                for(int i = 0; i < ts.getPropertyVector(f1).size(); i++) {
-                    point_vector.push_back(new Point(ts.getPropertyVector(f1).at(i), ts.getPropertyVector(f2).at(i)));
-                }
-                string corr_name = f1.append("-").append(f2);
-                _map.insert(std::pair<string,vector<Point*> >(corr_name, point_vector));
-            }
-        }
-    }
-    return _map;
-}
 
 vector<AnomalyReport> SimpleAnomalyDetector::detect(const TimeSeries& ts){
 

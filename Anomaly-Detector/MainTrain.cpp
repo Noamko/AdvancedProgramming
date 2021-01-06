@@ -12,7 +12,6 @@
 
 using namespace std;
 
-
 class STDtest:public DefaultIO{
 	ifstream in;
 	ofstream out;
