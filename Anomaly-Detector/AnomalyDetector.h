@@ -5,12 +5,12 @@
 
 #include <string>
 #include <vector>
-#include "timeseries.h"
 #include "math.h"
+#include "timeseries.h"
 using namespace std;
 
 
-class AnomalyReport{
+class AnomalyReport {
 public:
 	const string description;
 	const long timeStep;

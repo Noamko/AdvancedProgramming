@@ -82,7 +82,7 @@ int main(){
 	CLI cli(&std);
 	cli.start();
 	std.close();
-	check("output.txt","expectedOutput.txt");
+	check("output.txt", "expected_output.txt");
 	cout<<"done"<<endl;
 	return 0;
 }

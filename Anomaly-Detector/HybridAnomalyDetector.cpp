@@ -1,7 +1,5 @@
 #include "HybridAnomalyDetector.h"
 
-#define CORRELATION_THRESHOLD 0.9
-#define MIN_CORRELATION_THRESHOLD 0.5
 #define THRESHOLD_MUL 1.1
 
 HybridAnomalyDetector::HybridAnomalyDetector() {
@@ -22,7 +20,7 @@ void HybridAnomalyDetector::learnNormal(const TimeSeries& ts) {
                 }
                 float threshold = 0;
                 float correlation = std::abs(pearson(ts.getPropertyVector(f1).data(), ts.getPropertyVector(f2).data(), size));
-                if (correlation >= CORRELATION_THRESHOLD) {
+                if (correlation >= max_threshold) {
                     //learn using linear regression.
                     Line regLine = linear_reg(points, size);
                     for (size_t i = 0; i < size; i++) {
@@ -33,7 +31,7 @@ void HybridAnomalyDetector::learnNormal(const TimeSeries& ts) {
                     }
                     correlatedFeatures features = {f1, f2, correlation, threshold, regLine, Point(0, 0)};
                     cf.push_back(features);
-                } else if (correlation < CORRELATION_THRESHOLD && correlation >= MIN_CORRELATION_THRESHOLD) {
+                } else if (correlation < max_threshold && correlation >= min_threshold) {
                     //learn using minimalCircle
                     Circle min = findMinCircle(points, size);
                     threshold = min.radius;
@@ -55,7 +53,7 @@ vector<AnomalyReport> HybridAnomalyDetector::detect(const TimeSeries& ts) {
     for (int i = 0; i < vec.size(); i++) {
         string corr_f = vec[i].feature1 + "-" + vec[i].feature2;
 
-        if (vec[i].corrlation >= CORRELATION_THRESHOLD) {
+        if (vec[i].corrlation >= max_threshold) {
             for (int j = 1; j < pointMap[corr_f].size(); j++) {
                 Point p = *pointMap[corr_f].data()[j];
                 float deviation = dev(p, vec[i].lin_reg);
@@ -65,7 +63,8 @@ vector<AnomalyReport> HybridAnomalyDetector::detect(const TimeSeries& ts) {
                     ar.push_back(AnomalyReport(corr_f, j + 1));
                 }
             }
-        } else if (vec[i].corrlation < CORRELATION_THRESHOLD && vec[i].corrlation >= 0.5) {
+        }
+        else if (vec[i].corrlation < max_threshold && vec[i].corrlation >= 0.5) {
             for (size_t j = 1; j < pointMap[corr_f].size(); j++) {
                 Point p = *pointMap[corr_f].data()[j];
                 float dist = dist2Points(vec[i].center, p);

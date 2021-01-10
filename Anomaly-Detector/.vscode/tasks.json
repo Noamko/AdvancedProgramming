@@ -19,6 +19,7 @@
                 "$gcc"
             ],
             "group": "build",
-            "detail": "compiler: /usr/bin/clang++"
+            "detail": "compiler: /usr/bin/g++"
         }
+    ]
 }
