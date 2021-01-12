@@ -71,7 +71,8 @@
         "clocale": "cpp",
         "memory_resource": "cpp",
         "numeric": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "thread": "cpp"
     },
     "cmake.configureOnOpen": false
 }

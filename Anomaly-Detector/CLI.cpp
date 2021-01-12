@@ -26,6 +26,9 @@ void CLI::start(){
         //todo verifay input is an integer
         if(isParam(input)){
             int in = stoi(input);
+            if(in == 6) {
+                break;
+            }
             commands[in - 1]->execute();
         }
     }

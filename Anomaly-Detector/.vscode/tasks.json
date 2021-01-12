@@ -8,6 +8,7 @@
             "args": [
                 "-g",
                 "-std=c++11",
+                "-pthread",
                 "${workspaceFolder}/*.cpp",
                 "-o",
                 "${fileDirname}/a.out"
@@ -15,9 +16,6 @@
             "options": {
                 "cwd": "/usr/bin"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
             "group": "build",
             "detail": "compiler: /usr/bin/g++"
         }

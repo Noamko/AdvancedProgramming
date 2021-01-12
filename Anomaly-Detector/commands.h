@@ -114,7 +114,6 @@ public:
 };
 
 class UploadCSVCommand : public Command {
-	DefaultIO* dio;
 public:
 	UploadCSVCommand(DefaultIO* dio) : Command(dio) {}
 	int uploadfile(string filename) {
